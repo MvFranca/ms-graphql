@@ -5,8 +5,14 @@ export const userSchema = gql`
     id: ID!
     name: String!
     email: String!
+    role: Role!
     createdAt: String!
     updatedAt: String!
+  }
+
+  enum Role {
+    USER
+    ADMIN
   }
 
   type Query {
