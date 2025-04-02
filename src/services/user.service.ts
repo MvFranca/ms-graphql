@@ -1,22 +1,21 @@
-import { prisma } from "../database/prisma";
+import { UserRepository } from "../repositories/interface/UserRepository";
 
 export class UserService {
-  static async getUsers() {
-    return prisma.user.findMany();
+  private userRepository: UserRepository;
+
+  constructor(userRepository: UserRepository) {
+    this.userRepository = userRepository;
   }
 
-  static async getUserById(id: string) {
-    return prisma.user.findUnique({ where: { id } });
+  async getUsers() {
+    return this.userRepository.getUsers();
   }
 
-  static async createUser(name: string, email: string, password: string) {
-    return prisma.user.create({
-      data: {
-        name,
-        email,
-        password,
-      },
-    });
+  async getUserById(id: string) {
+    return this.userRepository.getFindById(id);
   }
-  
+
+  async createUser(name: string, email: string, password: string) {
+    return this.userRepository.createUser(name, email, password);
+  }
 }

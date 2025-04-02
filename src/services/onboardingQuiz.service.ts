@@ -1,7 +1,14 @@
-import { prisma } from "../database/prisma";
+import { OnboardingQuizRepository } from "../repositories/interface/OnboardingQuizRepository";
 
 export class OnboardingQuizService {
-  static async onboardingQuiz() {
-    return prisma.moduleMatterContent.findMany();
+
+  private onboardingQuiz: OnboardingQuizRepository;
+
+  constructor(onboardingQuiz: OnboardingQuizRepository) {
+    this.onboardingQuiz = onboardingQuiz;
+  }
+
+  async getQuestions() {
+    return this.onboardingQuiz.getQuestions();
   }
 }
