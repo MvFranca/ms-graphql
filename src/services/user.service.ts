@@ -1,3 +1,4 @@
+import { Role } from "@prisma/client";
 import { UserRepository } from "../repositories/interface/UserRepository";
 
 export class UserService {
@@ -19,7 +20,7 @@ export class UserService {
     return this.userRepository.getFindByEmail(email);
   }
 
-  async createUser(name: string, email: string, password: string) {
-    return this.userRepository.createUser(name, email, password);
+  async createUser(name: string, email: string, password: string, role: Role) {
+    return this.userRepository.createUser(name, email, password, role);
   }
 }

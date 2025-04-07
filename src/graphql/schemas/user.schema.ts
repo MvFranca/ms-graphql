@@ -21,6 +21,6 @@ export const userSchema = gql`
   }
 
   type Mutation {
-    createUser(name: String!, email: String!, password: String!): User!
+    createUser(name: String!, email: String!, password: String!, role: Role!): User!
   }
 `;

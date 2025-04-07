@@ -4,10 +4,14 @@ import { Role } from "../../types/user.types";
 export const authResolvers = {
   Mutation: {
     signup: async (_: any, { name, email, password, role }: { name: string; email: string; password: string; role: Role }, { authService }: { authService: AuthService }) => {
-      return await authService.signup(name, email, password, role);
+      const token = await authService.signup(name, email, password, role);
+      if(!token) return null
+      return {token}
     },
     signin: async (_: any, { email, password }: { email: string; password: string }, { authService }: { authService: AuthService }) => {
-      return await authService.signin(email, password);
+      const token = await authService.signin(email, password);
+      if(!token) return null
+      return {token}
     },
   },
 };

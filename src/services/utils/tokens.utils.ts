@@ -3,6 +3,7 @@ import { config } from "../../config/env";
 import { User } from "@prisma/client";
 
 export function generateToken(user:User) {
+  console.log("Generating token for user:", user);
   return jwt.sign({ userId: user.id, role: user.role }, config.SECRET_KEY, {
     expiresIn: "7d",
   });

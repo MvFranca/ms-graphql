@@ -1,4 +1,4 @@
-import { User } from "@prisma/client";
+import { Role, User } from "@prisma/client";
 import { prisma } from "../../database/prisma";
 import { UserRepository } from "../interface/UserRepository";
 
@@ -11,9 +11,9 @@ export class UserRepositoryImpl implements UserRepository {
         return prisma.user.findUnique({ where: { id } });
     }
 
-    async createUser(name: string, email: string, password: string): Promise<User> {
+    async createUser(name: string, email: string, password: string, role: Role): Promise<User> {
         return prisma.user.create({
-            data: { email, password, name },
+            data: { email, password, name, role },
         });
     }
 

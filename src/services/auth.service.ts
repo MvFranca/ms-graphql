@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import { UserRepository } from "../repositories/interface/UserRepository";
-import { Role } from "../types/user.types";
 import { generateToken } from "./utils/tokens.utils";
+import { Role } from "@prisma/client";
 
 const GENERIC_ERROR = "Invalid credentials";
 
@@ -13,7 +13,7 @@ export class AuthService {
     name: string,
     email: string,
     password: string,
-    role: Role
+    role: Role = Role.USER
   ): Promise<string> {
     try {
       const hashedPassword = await bcrypt.hash(password, 10);
@@ -25,6 +25,7 @@ export class AuthService {
       );
       return generateToken(user);
     } catch (error) {
+      console.error('Erro no signup:', error);
       throw new Error(GENERIC_ERROR);
     }
   }

@@ -1,3 +1,4 @@
+import { Role } from '@prisma/client';
 import { UserService } from '../../services/user.service';
 
 export const userResolvers = {
@@ -10,8 +11,8 @@ export const userResolvers = {
     },
   },
   Mutation: {
-    createUser: async (_: any, { name, email, password }: { name: string; email: string; password: string }, { userService }: { userService: UserService }) => {
-      return await userService.createUser(name, email, password);
+    createUser: async (_: any, { name, email, password, role }: { name: string; email: string; password: string, role: Role }, { userService }: { userService: UserService }) => {
+      return await userService.createUser(name, email, password, role);
     },
   },
 };
