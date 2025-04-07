@@ -15,6 +15,10 @@ export class UserService {
     return this.userRepository.getFindById(id);
   }
 
+  async getUserByEmail(email: string) {
+    return this.userRepository.getFindByEmail(email);
+  }
+
   async createUser(name: string, email: string, password: string) {
     return this.userRepository.createUser(name, email, password);
   }

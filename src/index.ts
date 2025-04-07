@@ -20,7 +20,8 @@ const server = new ApolloServer({
 
 startStandaloneServer(server, {
   listen: { port: 5000 },
-  context: async () => ({
+  context:
+   async () => ({
     ...services, 
   }),
 }).then(({ url }) => {
