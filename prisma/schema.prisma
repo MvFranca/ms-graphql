@@ -8,12 +8,13 @@ datasource db {
 }
 
 model User {
-  id        String  @id @default(uuid())
-  name      String
-  email     String  @unique
-  password  String
-  role      Role  @default(USER) 
-  createdAt DateTime @default(now())
+  id          String       @id @default(uuid())
+  name        String
+  email       String       @unique
+  password    String
+  role        Role         @default(USER)
+  createdAt   DateTime     @default(now())
+  userModules UserModule[] // ← relação com a trilha do usuário
 }
 
 enum Role {
@@ -21,11 +22,52 @@ enum Role {
   ADMIN
 }
 
-
 model ModuleMatterContent {
   id        String   @id @default(uuid())
   name      String
   options   String[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Module {
+  id          String      @id @default(uuid())
+  name        String
+  description String
+  submodules  Submodule[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model Submodule {
+  id          String       @id @default(uuid())
+  title       String
+  description String
+  order       Int // ordem na trilha
+  module      Module       @relation(fields: [moduleId], references: [id])
+  moduleId    String
+  isReview    Boolean      @default(false) // ← usado para marcar revisões
+  items       Item[]
+  userModules UserModule[]
+}
+
+model Item {
+  id          String    @id @default(uuid())
+  type        String // ex: multipleChoice, dragAndDrop, award
+  difficulty  String
+  questionQty Int
+  points      Int
+  submodule   Submodule @relation(fields: [submoduleId], references: [id])
+  submoduleId String
+}
+
+model UserModule {
+  id          String    @id @default(uuid())
+  user        User      @relation(fields: [userId], references: [id])
+  userId      String
+  submodule   Submodule @relation(fields: [submoduleId], references: [id])
+  submoduleId String
+  status      String // ex: pending, completed
+  score       Int
+  createdAt   DateTime  @default(now())
 }

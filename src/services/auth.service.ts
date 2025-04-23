@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import { UserRepository } from "../repositories/interface/UserRepository";
-import { generateToken } from "./utils/tokens.utils";
 import { Role } from "@prisma/client";
+import { generateToken } from "../utils/tokens.utils";
 
 const GENERIC_ERROR = "Invalid credentials";
 

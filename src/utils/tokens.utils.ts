@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { config } from "../../config/env";
+import { config } from "../config/env";
 import { User } from "@prisma/client";
 
 export function generateToken(user:User) {

@@ -17,11 +17,19 @@ const server = new ApolloServer({
   introspection: true,
   csrfPrevention: true,
   allowBatchedHttpRequests: true,
-  includeStacktraceInErrorResponses: true, 
+  includeStacktraceInErrorResponses: true,
+  
+  // plugins: [
+  //   ApolloServerPluginLandingPageGraphQLPlayground(), 
+  // ],
+
   formatError: (err) => {
     console.error("GraphQL Error:", err);
     return err;
   },
+
+  
+
 });
 startStandaloneServer(server, {
   listen: { port: 4000 },
