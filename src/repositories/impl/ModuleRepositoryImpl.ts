@@ -4,14 +4,13 @@ import { Module, Submodule, Item } from "@prisma/client";
 
 export class ModuleRepositoryImpl implements ModuleRepository {
   async getAllModules(): Promise<Module[]> {
-    return prisma.module.findMany({ include: { submodules: true } });
+    return prisma.module.findMany({ include: { submodules: false } });
   }
 
   async getSubmodulesByModule(moduleId: string): Promise<Submodule[]> {
     return prisma.submodule.findMany({
       where: { moduleId },
       include: { items: true },
-      orderBy: { order: "asc" },
     });
   }
 

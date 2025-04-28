@@ -24,7 +24,7 @@ export const moduleSchema = gql`
     description: String!
     order: Int!           
     isReview: Boolean!
-    items: [Item!]!
+    items: [Item!]!  @stream @defer
     module: Module!
   }
 
